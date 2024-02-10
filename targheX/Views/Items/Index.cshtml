@@ -1,0 +1,245 @@
+﻿@model IEnumerable<targheX.Models.Item>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>CGT - Conto Giudiziale Targhe</h1>
+
+<p>
+    <a asp-action="Create">Crea nuovo</a>
+</p>
+<style>
+    
+    /* Stile per aumentare lo spazio solo della prima colonna */
+    .table th:first-child,
+    .table td:first-child {
+        padding-right: 60px; /* Modifica questo valore per regolare lo spazio */
+    }
+
+
+    /* Stile per il titolo delle colonne */
+    .table th {
+        background-color: #f2f2f2; /* Colore di sfondo */
+        font-weight: bold; /* Testo in grassetto */
+        text-align: center; /* Allineamento del testo al centro */
+    }
+
+    /* Stile per le righe alterne */
+    .table tbody tr:nth-child(even) {
+        background-color: #f9f9f9; /* Colore di sfondo */
+    }
+
+    /* Stile per i link nei pulsanti di azione */
+    .table a {
+        color: #007bff; /* Colore del testo */
+        text-decoration: none; /* Nessuna decorazione */
+    }
+
+        /* Stile per i link nei pulsanti di azione al passaggio del mouse */
+        .table a:hover {
+            color: #0056b3; /* Cambia il colore del testo al passaggio del mouse */
+
+        
+        }
+</style>
+<div class="table-responsive">
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Giacenza)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GennaioCarico)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GennaioScarico)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FebbraioCarico)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FebbraioScarico)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MarzoCarico)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MarzoScarico)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AprileCarico)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AprileScarico)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaggioCarico)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaggioScarico)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GiugnoCarico)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GiugnoScarico)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LuglioCarico)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LuglioScarico)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AgostoCarico)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AgostoScarico)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SettembreCarico)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SettembreScarico)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OttobreCarico)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OttobreScarico)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NovembreCarico)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NovembreScarico)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DicembreCarico)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DicembreScarico)
+            </th>
+            <th>
+                Rimanenza
+            </th>
+            <th>
+               Totale Carico
+            </th>
+            <th>
+               Totale Scarico
+            </th>
+            <th>
+               Totale
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Giacenza)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GennaioCarico)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GennaioScarico)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FebbraioCarico)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FebbraioScarico)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MarzoCarico)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MarzoScarico)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AprileCarico)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AprileScarico)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaggioCarico)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaggioScarico)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GiugnoCarico)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GiugnoScarico)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LuglioCarico)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LuglioScarico)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AgostoCarico)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AgostoScarico)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SettembreCarico)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SettembreScarico)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OttobreCarico)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OttobreScarico)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NovembreCarico)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NovembreScarico)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DicembreCarico)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DicembreScarico)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rimanenza)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotaleCarico)
+            </td>
+            <td>
+                 @Html.DisplayFor(modelItem => item.TotaleScarico)
+            </td>
+            <td>
+                 @Html.DisplayFor(modelItem => item.Totale)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID">Modifica</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Dettaglio</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Cancella</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</div>
