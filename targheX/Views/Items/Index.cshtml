@@ -14,7 +14,9 @@
     /* Stile per aumentare lo spazio solo della prima colonna */
     .table th:first-child,
     .table td:first-child {
-        padding-right: 60px; /* Modifica questo valore per regolare lo spazio */
+        padding-right: 20px; /* Modifica questo valore per regolare lo spazio */
+        font-weight: bold; /* Prima colonna bold */
+        border-right: 1px solid #ddd; /* Bordo destro */
     }
 
 
@@ -23,6 +25,7 @@
         background-color: #f2f2f2; /* Colore di sfondo */
         font-weight: bold; /* Testo in grassetto */
         text-align: center; /* Allineamento del testo al centro */
+        border-right: 1px solid #ddd; /* Bordo destro */
     }
 
     /* Stile per le righe alterne */
@@ -36,110 +39,71 @@
         text-decoration: none; /* Nessuna decorazione */
     }
 
-        /* Stile per i link nei pulsanti di azione al passaggio del mouse */
-        .table a:hover {
-            color: #0056b3; /* Cambia il colore del testo al passaggio del mouse */
-
-        
-        }
+    /* Stile per i link nei pulsanti di azione al passaggio del mouse */
+    .table a:hover {
+        color: #0056b3; /* Cambia il colore del testo al passaggio del mouse */
+    }
+    
+        /* Aggiunta del bordo destro per tutte le celle tranne l'ultima colonna */
+    .table th:not(:last-child), .table td:not(:last-child) {
+        border-right: 1px solid #ddd;
+    }
 </style>
 <div class="table-responsive">
 <table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Giacenza)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GennaioCarico)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GennaioScarico)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FebbraioCarico)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FebbraioScarico)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MarzoCarico)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MarzoScarico)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AprileCarico)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AprileScarico)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MaggioCarico)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MaggioScarico)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GiugnoCarico)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GiugnoScarico)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LuglioCarico)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LuglioScarico)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AgostoCarico)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AgostoScarico)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SettembreCarico)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SettembreScarico)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OttobreCarico)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OttobreScarico)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NovembreCarico)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NovembreScarico)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DicembreCarico)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DicembreScarico)
-            </th>
-            <th>
-                Rimanenza
-            </th>
-            <th>
-               Totale Carico
-            </th>
-            <th>
-               Totale Scarico
-            </th>
-            <th>
-               Totale
-            </th>
-            <th></th>
-        </tr>
-    </thead>
+        <thead>
+            <tr>
+                <th rowspan="2">
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th rowspan="2">
+                    @Html.DisplayNameFor(model => model.Giacenza)
+                </th>
+                <th colspan="2">Gennaio</th>
+                <th colspan="2">Febbraio</th>
+                <th colspan="2">Marzo</th>
+                <th colspan="2">Aprile</th>
+                <th colspan="2">Maggio</th>
+                <th colspan="2">Giugno</th>
+                <th colspan="2">Luglio</th>
+                <th colspan="2">Agosto</th>
+                <th colspan="2">Settembre</th>
+                <th colspan="2">Ottobre</th>
+                <th colspan="2">Novembre</th>
+                <th colspan="2">Dicembre</th>
+                <th rowspan="2">Rimanenza</th>
+                <th rowspan="2">Totale Carico</th>
+                <th rowspan="2">Totale Scarico</th>
+                <th rowspan="2">Totale</th>
+                <th rowspan="2"></th>
+            </tr>
+            <tr>
+                <th>Carico</th>
+                <th>Scarico</th>
+                <th>Carico</th>
+                <th>Scarico</th>
+                <th>Carico</th>
+                <th>Scarico</th>
+                <th>Carico</th>
+                <th>Scarico</th>
+                <th>Carico</th>
+                <th>Scarico</th>
+                <th>Carico</th>
+                <th>Scarico</th>
+                <th>Carico</th>
+                <th>Scarico</th>
+                <th>Carico</th>
+                <th>Scarico</th>
+                <th>Carico</th>
+                <th>Scarico</th>
+                <th>Carico</th>
+                <th>Scarico</th>
+                <th>Carico</th>
+                <th>Scarico</th>
+                <th>Carico</th>
+                <th>Scarico</th>
+            </tr>
+        </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
