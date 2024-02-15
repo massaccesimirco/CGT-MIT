@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["Title"] = "Specifiche";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    FLUSSO DI BASE CGT<br /><br />
+    <ul>
+        <li>
+            Visualizzazione index del sistema - pagina di benvenuto che presenta un menu in alto e tre possibili aree di accesso:
+        </li>
+        <li>
+            Visualizza: mostra il resoconto CGT annuale aggiornato all’ultima modifica.
+        </li>
+        <li>
+            Modifica: accesso consentito previa registrazione e login, abilita le funzioni di creazione, modifica, dettaglio e cancella sul resoconto CGT che agiscono direttamente su tutti i record della riga selezionata.
+        </li>
+        <li>
+            Login: tramite il login permette l’accesso all’area di “Modifica”.
+        </li>
+        <li>
+            Riconoscimento utente: il sistema riconosce l’utente autenticato e ne conferisce i privilegi associati.
+        </li>
+        <li>Visualizzazione del resoconto: una volta effettuato il riconoscimento tramite il login avremo accesso alla visualizzazione del resoconto CGT ed abilitato i privilegi dell’utente amministratore.</li>
+    </ul>
+    <br />
+    <br />
+    ESTENSIONI E FLUSSI ALTERNATIVI<br /><br />
+    <ul>
+        <li>
+            Funzione di stampa: presente all’interno dell’area “Visualizza”, genera un file pdf di tutti i record inseriti formattato per una stampa A4.
+        </li>
+    <br />
+        <li>
+            Creazione dei Ruoli di accesso: previsti 3 tipi di privilegi collegati a 3 ruoli per un differente utilizzo del sistema: amministratore, utente motorizzazione ed utente agenzia.
+            I seguenti ruoli avranno diverse interfacce di visualizzazione in base alle esigenze di inserimento nel resoconto annuale, in più l’utente agenzia avrà una policy di modifica e visualizzazione inerente unicamente al proprio lavoro ed ai propri inserimenti.
+        </li>
+    <br />
+        <li>Creazioni di filtri dati per le visualizzazioni e gli inserimenti: creazioni di una vista e relativo controllo di filtro per data in modo da poter visualizzare più anni, mesi e di conseguenza permettere la modifica e l’inserimento nelle viste collegate a tutti gli account in base ai privilegi conferiti.</li>
+    </ul><br /><br />
+    METODI E TECNICHE UTILIZZATI<br /><br />
+    Implementata una WEBAPP MVC ASP.NET 7.0 collegata ad un DB Azure<br />
+    Accessibile all’indirizzo (accesso privato):  https://targhe.azurewebsites.net<br />
+    Pubblicata su GitHub all’indirizzo:  https://github.com/massaccesimirco/CGT-MIT.git<br />
+    <br />
+    Utilizzate le seguenti librerie e packpage:<br />
+    Bootstrap e jquery<br />
+    Microsoft EntityFrameworkCore<br />
+    Microsoft EntityFrameworkCore.Sqlite<br />
+    Microsoft EntityFrameworkCore.sqlServer<br />
+    Microsoft EntityFrameworkCore.Tools<br />
+    AspNetCore Identity<br />
+    AspNetCore Identity.UI<br />
+    AspNetCore Identity.EntityFrameworkCore<br />
+    MicrosoftVisualstudioWebCodeGeneration<br />
+</p>
