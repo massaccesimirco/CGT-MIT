@@ -71,7 +71,7 @@ namespace targheX.Controllers
             return CalcolaTotaleScarico(item) + Rimanenza(item);
         }
 
-        // GET: Items/Details/5
+        // GET: Items-Dettagli
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -89,13 +89,13 @@ namespace targheX.Controllers
             return View(item);
         }
 
-        // GET: Items/Create
+        // GET: Items-Crea nuovo
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Items/Create
+        // POST: Items-Crea nuovo
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,Name,Giacenza,GennaioCarico,GennaioScarico,FebbraioCarico,FebbraioScarico,MarzoCarico,MarzoScarico,AprileCarico,AprileScarico,MaggioCarico,MaggioScarico,GiugnoCarico,GiugnoScarico,LuglioCarico,LuglioScarico,AgostoCarico,AgostoScarico,SettembreCarico,SettembreScarico,OttobreCarico,OttobreScarico,NovembreCarico,NovembreScarico,DicembreCarico,DicembreScarico")] Item item)
@@ -109,7 +109,7 @@ namespace targheX.Controllers
             return View(item);
         }
 
-        // GET: Items/Edit/5
+        // GET: Items-Modifica
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -125,7 +125,7 @@ namespace targheX.Controllers
             return View(item);
         }
 
-        // POST: Items/Edit/5
+        // POST: Items-Modifica
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Giacenza,GennaioCarico,GennaioScarico,FebbraioCarico,FebbraioScarico,MarzoCarico,MarzoScarico,AprileCarico,AprileScarico,MaggioCarico,MaggioScarico,GiugnoCarico,GiugnoScarico,LuglioCarico,LuglioScarico,AgostoCarico,AgostoScarico,SettembreCarico,SettembreScarico,OttobreCarico,OttobreScarico,NovembreCarico,NovembreScarico,DicembreCarico,DicembreScarico")] Item item)
@@ -158,7 +158,7 @@ namespace targheX.Controllers
             return View(item);
         }
 
-        // GET: Items/Delete/5
+        // GET: Items-Cancella
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -176,7 +176,7 @@ namespace targheX.Controllers
             return View(item);
         }
 
-        // POST: Items/Delete/5
+        // POST: Items-Cancella
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
