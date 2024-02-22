@@ -26,9 +26,6 @@ I seguenti ruoli avranno diverse interfacce di visualizzazione in base alle esig
 
 METODI E TECNICHE UTILIZZATI
 Implementata una WEBAPP ModelViewController ASP.NETCore 7.0 con VisualStudio2022 collegata ad un gruppo di risorse Azure nominato Targhe che comprende SQL server, DB e servizio app. 
-Accessibile all’indirizzo (accesso privato con firewall):  https://targhe.azurewebsites.net
-Pubblica su GitHub all’indirizzo:  https://github.com/massaccesimirco/CGT-MIT.git
-
 
 Utilizzate le seguenti librerie e packpage:
 Bootstrap e jquery 
