@@ -1,72 +1,19 @@
 ﻿@model IEnumerable<targheX.Models.Item>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Inserimento";
 }
 
 <h1>CGT - Conto Giudiziale Targhe</h1>
-<br />
-<!-- Form per ricerca -->
-<form method="get" action="@Url.Action("Index", "ItemSearch")">
-    <label for="searchInput">Digita il tipo:</label>
-    <input type="text" id="searchInput" name="searchItems" />
-    <button type="submit">Filtra</button>
-</form>
-<br />
+
 <style>
-    /* Stile per la tabella */
-    .table-container {
-        overflow-x: auto;
-        max-width: 100%;
-    }
-
-    thead {
-        border-bottom: 2px solid black;
-    }
-
-    table {
-        border-collapse: collapse;
-        width: 100%;
-    }
-
-    th, td {
-        border: 1px solid #dddddd;
-        text-align: left;
-        padding: 8px;
-    }
-      
-        td:first-child {
-            position: sticky;
-            left: 0;
-            background-color: #f2f2f2;
-            z-index: 2; /* Imposta uno z-index maggiore per la prima colonna */
-        }
-
-    .first-column {
-        position: sticky;
-        left: 0;
-        background-color: #f2f2f2;
-        z-index: 2;
-    }
-
-    .all-column {
-        z-index: 1;
-    }  
-
-    tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
-
-    tr:hover {
-        background-color: #dddddd;
-    }
 
     /* Stile per aumentare lo spazio solo della prima colonna */
     .table th:first-child,
     .table td:first-child {
         padding-right: 20px; /* Modifica questo valore per regolare lo spazio */
         font-weight: bold; /* Prima colonna bold */
-        border-right: 2px solid #ddd; /* Bordo destro */
+        border-right: 1px solid #ddd; /* Bordo destro */
     }
 
 
@@ -97,14 +44,15 @@
     /* Aggiunta del bordo destro per tutte le celle tranne l'ultima colonna */
     .table th:not(:last-child), .table td:not(:last-child) {
         border-right: 1px solid #ddd;
-       
     }
 </style>
-<div class="table-responsive table-container">
+<div class="table-responsive">
     <table class="table">
         <thead>
+            
             <tr>
-                <th rowspan="2" class="first-column">
+                <td>Inserimento UMC</td>
+                <th rowspan="2">
                     @Html.DisplayNameFor(model => model.Name)
                 </th>
                 <th rowspan="2">
@@ -129,7 +77,8 @@
                 <th rowspan="2"></th>
             </tr>
             <tr>
-                <th class="all-column">Carico</th>
+                <th></th>
+                <th>Carico</th>
                 <th>Scarico</th>
                 <th>Carico</th>
                 <th>Scarico</th>
@@ -157,8 +106,11 @@
         </thead>
         <tbody>
             @foreach (var item in Model)
-            {
+            { 
                 <tr>
+                    <td>
+                        <a asp-action="Add" asp-route-id="@item.ID">Aggiungi</a>
+                    </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Name)
                     </td>
@@ -248,7 +200,7 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Totale)
-                    </td>
+                    </td>  
                 </tr>
             }
         </tbody>

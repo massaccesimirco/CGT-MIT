@@ -14,7 +14,6 @@ namespace targheX.Models
         // Giacenza iniziale dell'anno
         public int Giacenza { get; set; }
 
-
         // Movimenti per ogni mese
         [Display(Name = "Gennaio carico")]
         public int GennaioCarico { get; set; }
@@ -77,6 +76,7 @@ namespace targheX.Models
         // Totale
         public int Totale { get; set; }
 
-
+        // inserimento nuovo valore
+        public int NuovoValore { get; set; }
     }
 }
