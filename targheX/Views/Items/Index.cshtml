@@ -75,7 +75,7 @@
                 <th rowspan="2">Totale Carico</th>
                 <th rowspan="2">Totale Scarico</th>
                 <th rowspan="2">Totale</th>
-                <th rowspan="2"></th>
+                <th rowspan="2">Data</th>
             </tr>
             <tr>
                 <th>Carico</th>
@@ -197,6 +197,9 @@
             <td>
                  @Html.DisplayFor(modelItem => item.Totale)
             </td>
+            <td>
+                 @Html.DisplayFor(modelItem => item.DataIns)
+           </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Modifica</a> |
                 <a asp-action="Details" asp-route-id="@item.ID">Dettaglio</a> |

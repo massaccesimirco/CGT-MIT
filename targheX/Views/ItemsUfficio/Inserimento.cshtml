@@ -74,7 +74,7 @@
                 <th rowspan="2">Totale Carico</th>
                 <th rowspan="2">Totale Scarico</th>
                 <th rowspan="2">Totale</th>
-                <th rowspan="2"></th>
+                <th rowspan="2">Data</th>
             </tr>
             <tr>
                 <th></th>
@@ -200,7 +200,10 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Totale)
-                    </td>  
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DataIns)
+                    </td>
                 </tr>
             }
         </tbody>

@@ -6,6 +6,8 @@ namespace targheX.Models
     {
         [Key]
         public int ID { get; set; }
+        [Display(Name = "Data inserimento")]
+        public DateTime DataIns { get; set; }
 
         [Required]
         [Display(Name = "Nome")]
