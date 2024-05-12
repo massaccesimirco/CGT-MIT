@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using targheX.Areas.Identity.Data;
 
@@ -11,9 +12,11 @@ using targheX.Areas.Identity.Data;
 namespace targheX.Migrations.DbContextUserMigrations
 {
     [DbContext(typeof(DbContextUser))]
-    partial class DbContextUserModelSnapshot : ModelSnapshot
+    [Migration("20240504140503_ModificaTipo2")]
+    partial class ModificaTipo2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -201,7 +204,7 @@ namespace targheX.Migrations.DbContextUserMigrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("RoleId")
+                    b.Property<string>("Role")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

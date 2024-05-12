@@ -27,11 +27,33 @@
                 <label asp-for="Input.ConfirmPassword">Confirm Password</label>
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+
+            <div class="form-floating mb-3">
+                <select asp-for="Input.RoleName" class="form-select" aria-required="true" id="roleIdSelect">
+                    <option value="">Seleziona un ruolo</option>
+                    <option value="Admin">Admin</option>
+                    <option value="Ufficio">Ufficio</option>
+                    <option value="Agenzia">Agenzia</option>
+                </select>
+                <label asp-for="Input.RoleName">Ruolo assegnato</label>
+                <span asp-validation-for="Input.RoleName" class="text-danger"></span>
+            </div>
+
+
+            <div id="selectedRoleName"></div>
+
+            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Registra</button>
         </form>
     </div>
-   
+</div>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            $('#roleIdSelect').change(function () {
+                var selectedRoleName = $('#roleIdSelect option:selected').text();
+                $('#selectedRoleName').text(selectedRoleName);
+            });
+        });
+    </script>
 }

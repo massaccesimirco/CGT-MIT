@@ -11,6 +11,7 @@ using targheX.Models;
 
 namespace targheX.Controllers
 {
+    [Authorize(Roles = "Ufficio, Admin")]
     public class ItemsUfficio : Controller
     {
         private readonly ApplicationDbContext _context;
