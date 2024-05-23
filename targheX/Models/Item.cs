@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 
 namespace targheX.Models
 {
@@ -80,5 +81,6 @@ namespace targheX.Models
 
         // inserimento nuovo valore
         public int NuovoValore { get; set; }
+
     }
 }

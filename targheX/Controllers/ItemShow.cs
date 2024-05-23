@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Rotativa.AspNetCore;
 using targheX.Data;
 using targheX.Models;
 
@@ -20,14 +20,53 @@ namespace targheX.Controllers
             _context = context;
         }
 
-        // GET: Items
-        public async Task<IActionResult> Index()
+        // GET: ItemSearch
+        public async Task<IActionResult> Index(string searchItems, DateTime? startDate, DateTime? endDate, string selectedMonth)
         {
-            // Carica gli oggetti Item dal database
-            var items = await _context.Items.ToListAsync();
+            ViewData["CurrentFilter"] = searchItems;
+            ViewData["CurrentStartDate"] = startDate?.ToString("yyyy-MM-dd");
+            ViewData["CurrentEndDate"] = endDate?.ToString("yyyy-MM-dd");
+            ViewData["SelectedMonth"] = selectedMonth;
 
-            // Calcola i valori TotaleCarico, TotaleScarico, Rimanenza e Totale per ogni oggetto Item
-            foreach (var item in items)
+            var months = new List<SelectListItem>
+            {
+                new SelectListItem { Value = "1", Text = "Gennaio" },
+                new SelectListItem { Value = "2", Text = "Febbraio" },
+                new SelectListItem { Value = "3", Text = "Marzo" },
+                new SelectListItem { Value = "4", Text = "Aprile" },
+                new SelectListItem { Value = "5", Text = "Maggio" },
+                new SelectListItem { Value = "6", Text = "Giugno" },
+                new SelectListItem { Value = "7", Text = "Luglio" },
+                new SelectListItem { Value = "8", Text = "Agosto" },
+                new SelectListItem { Value = "9", Text = "Settembre" },
+                new SelectListItem { Value = "10", Text = "Ottobre" },
+                new SelectListItem { Value = "11", Text = "Novembre" },
+                new SelectListItem { Value = "12", Text = "Dicembre" }
+            };
+
+            ViewBag.Months = months;
+
+            var items = from i in _context.Items select i;
+
+            if (!string.IsNullOrEmpty(searchItems))
+            {
+                items = items.Where(i => i.Name.Contains(searchItems));
+            }
+
+            if (startDate.HasValue && endDate.HasValue)
+            {
+                items = items.Where(i => i.DataIns >= startDate && i.DataIns <= endDate);
+            }
+
+            if (!string.IsNullOrEmpty(selectedMonth) && selectedMonth != "all")
+            {
+                int month = int.Parse(selectedMonth);
+                items = items.Where(i => i.DataIns.Month == month);
+            }
+
+            var searchItemsResults = await items.ToListAsync();
+
+            foreach (var item in searchItemsResults)
             {
                 item.TotaleCarico = CalcolaTotaleCarico(item);
                 item.TotaleScarico = CalcolaTotaleScarico(item);
@@ -35,46 +74,47 @@ namespace targheX.Controllers
                 item.Rimanenza = Rimanenza(item);
             }
 
-            return View(items);
+            return View(searchItemsResults);
         }
 
-        // Metodo per calcolare il totale di carico per un oggetto Item
         private int CalcolaTotaleCarico(Item item)
         {
-            // Calcola il totale di carico utilizzando le proprietà mensili e la giacenza iniziale
             return item.GennaioCarico + item.FebbraioCarico + item.MarzoCarico + item.AprileCarico + item.MaggioCarico +
                    item.GiugnoCarico + item.LuglioCarico + item.AgostoCarico + item.SettembreCarico + item.OttobreCarico +
                    item.NovembreCarico + item.DicembreCarico;
         }
 
-        // Metodo per calcolare il totale di scarico per un oggetto Item
         private int CalcolaTotaleScarico(Item item)
         {
-            // Calcola il totale di scarico utilizzando le proprietà mensili
             return item.GennaioScarico + item.FebbraioScarico + item.MarzoScarico + item.AprileScarico + item.MaggioScarico +
                    item.GiugnoScarico + item.LuglioScarico + item.AgostoScarico + item.SettembreScarico + item.OttobreScarico +
                    item.NovembreScarico + item.DicembreScarico;
         }
 
-        // Metodo per calcolare la rimanenza per un oggetto Item
         private int Rimanenza(Item item)
         {
-            // Calcola la rimaneza sommando la giacenza iniziale al carico totale e sottraendo lo scarico totale
             return CalcolaTotaleCarico(item) + item.Giacenza - CalcolaTotaleScarico(item);
         }
 
-        // Metodo per calcolare il totale per un oggetto Item
         private int CalcolaTotale(Item item)
         {
-            // Calcola il totale sommando scarico totale e rimanenza
             return CalcolaTotaleScarico(item) + Rimanenza(item);
         }
 
-        // Metodo privato per verificare l'esistenza di un oggetto Item nel database
         private bool ItemExists(int id)
         {
             return _context.Items.Any(e => e.ID == id);
         }
 
+        public IActionResult GeneratePdf()
+        {
+            var items = _context.Items.ToList();
+
+            return new ViewAsPdf("PdfView", items)
+            {
+                PageSize = Rotativa.AspNetCore.Options.Size.A4,
+                PageOrientation = Rotativa.AspNetCore.Options.Orientation.Landscape
+            };
+        }
     }
 }

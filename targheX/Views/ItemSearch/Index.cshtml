@@ -1,0 +1,189 @@
+﻿@model IEnumerable<targheX.Models.Item>
+
+@{
+    ViewData["Title"] = "Ricerca Item";
+}
+
+<h1>CGT - Conto Giudiziale Targhe</h1>
+<br />
+<!-- Form per ricerca diviso su due colonne -->
+<form method="get" action="@Url.Action("Index", "ItemSearch")" class="form-inline mb-3">
+    <div class="row">
+        <div class="col-md-6">
+            <!-- Primo gruppo di input -->
+            <div class="form-group">
+                <label for="searchInput" class="mr-2">Digita il nome:</label>
+                <input type="text" id="searchInput" name="searchItems" class="form-control" value="@ViewData["CurrentFilter"]" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <!-- Secondo gruppo di input -->
+            <div class="form-group">
+                <label for="startDate" class="mr-2">Data Inizio:</label>
+                <input type="date" id="startDate" name="startDate" class="form-control" value="@ViewData["CurrentStartDate"]" />
+            </div>
+            <div class="form-group">
+                <label for="endDate" class="mr-2">Data Fine:</label>
+                <input type="date" id="endDate" name="endDate" class="form-control" value="@ViewData["CurrentEndDate"]" />
+            </div>
+        </div>
+    </div>
+    <!-- Bottone per inviare il form -->
+    <button type="submit" class="btn btn-primary">Filtra</button>
+</form>
+
+<br />
+<!-- Aggiungi un menù a tendina per selezionare il mese -->
+<div class="form-group">
+    <label for="monthSelect" class="mr-2">Seleziona il mese:</label>
+    <select id="monthSelect" class="form-control">
+        <option value="all">Tutti</option>
+        <option value="1">Gennaio</option>
+        <option value="2">Febbraio</option>
+        <option value="3">Marzo</option>
+        <option value="4">Aprile</option>
+        <option value="5">Maggio</option>
+        <option value="6">Giugno</option>
+        <option value="7">Luglio</option>
+        <option value="8">Agosto</option>
+        <option value="9">Settembre</option>
+        <option value="10">Ottobre</option>
+        <option value="11">Novembre</option>
+        <option value="12">Dicembre</option>
+    </select>
+</div>
+
+<!-- Bottone per mostrare il mese selezionato -->
+<button id="showMonth" class="btn btn-secondary">Mostra Mese</button>
+<br />
+<br />
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th rowspan="2" class="align-middle">@Html.DisplayNameFor(model => model.Name)</th>
+                <th rowspan="2" class="align-middle">@Html.DisplayNameFor(model => model.Giacenza)</th>
+                <th colspan="2" data-month="1">Gennaio</th>
+                <th colspan="2" data-month="2">Febbraio</th>
+                <th colspan="2" data-month="3">Marzo</th>
+                <th colspan="2" data-month="4">Aprile</th>
+                <th colspan="2" data-month="5">Maggio</th>
+                <th colspan="2" data-month="6">Giugno</th>
+                <th colspan="2" data-month="7">Luglio</th>
+                <th colspan="2" data-month="8">Agosto</th>
+                <th colspan="2" data-month="9">Settembre</th>
+                <th colspan="2" data-month="10">Ottobre</th>
+                <th colspan="2" data-month="11">Novembre</th>
+                <th colspan="2" data-month="12">Dicembre</th>
+                <th rowspan="2" class="align-middle">Rimanenza</th>
+                <th rowspan="2" class="align-middle">Totale Carico</th>
+                <th rowspan="2" class="align-middle">Totale Scarico</th>
+                <th rowspan="2" class="align-middle">Totale</th>
+                <th rowspan="2" class="align-middle">Data</th>
+            </tr>
+            <tr>
+                <th data-month="1">Carico</th>
+                <th data-month="1">Scarico</th>
+                <th data-month="2">Carico</th>
+                <th data-month="2">Scarico</th>
+                <th data-month="3">Carico</th>
+                <th data-month="3">Scarico</th>
+                <th data-month="4">Carico</th>
+                <th data-month="4">Scarico</th>
+                <th data-month="5">Carico</th>
+                <th data-month="5">Scarico</th>
+                <th data-month="6">Carico</th>
+                <th data-month="6">Scarico</th>
+                <th data-month="7">Carico</th>
+                <th data-month="7">Scarico</th>
+                <th data-month="8">Carico</th>
+                <th data-month="8">Scarico</th>
+                <th data-month="9">Carico</th>
+                <th data-month="9">Scarico</th>
+                <th data-month="10">Carico</th>
+                <th data-month="10">Scarico</th>
+                <th data-month="11">Carico</th>
+                <th data-month="11">Scarico</th>
+                <th data-month="12">Carico</th>
+                <th data-month="12">Scarico</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Giacenza)</td>
+                    <td data-month="1">@Html.DisplayFor(modelItem => item.GennaioCarico)</td>
+                    <td data-month="1">@Html.DisplayFor(modelItem => item.GennaioScarico)</td>
+                    <td data-month="2">@Html.DisplayFor(modelItem => item.FebbraioCarico)</td>
+                    <td data-month="2">@Html.DisplayFor(modelItem => item.FebbraioScarico)</td>
+                    <td data-month="3">@Html.DisplayFor(modelItem => item.MarzoCarico)</td>
+                    <td data-month="3">@Html.DisplayFor(modelItem => item.MarzoScarico)</td>
+                    <td data-month="4">@Html.DisplayFor(modelItem => item.AprileCarico)</td>
+                    <td data-month="4">@Html.DisplayFor(modelItem => item.AprileScarico)</td>
+                    <td data-month="5">@Html.DisplayFor(modelItem => item.MaggioCarico)</td>
+                    <td data-month="5">@Html.DisplayFor(modelItem => item.MaggioScarico)</td>
+                    <td data-month="6">@Html.DisplayFor(modelItem => item.GiugnoCarico)</td>
+                    <td data-month="6">@Html.DisplayFor(modelItem => item.GiugnoScarico)</td>
+                    <td data-month="7">@Html.DisplayFor(modelItem => item.LuglioCarico)</td>
+                    <td data-month="7">@Html.DisplayFor(modelItem => item.LuglioScarico)</td>
+                    <td data-month="8">@Html.DisplayFor(modelItem => item.AgostoCarico)</td>
+                    <td data-month="8">@Html.DisplayFor(modelItem => item.AgostoScarico)</td>
+                    <td data-month="9">@Html.DisplayFor(modelItem => item.SettembreCarico)</td>
+                    <td data-month="9">@Html.DisplayFor(modelItem => item.SettembreScarico)</td>
+                    <td data-month="10">@Html.DisplayFor(modelItem => item.OttobreCarico)</td>
+                    <td data-month="10">@Html.DisplayFor(modelItem => item.OttobreScarico)</td>
+                    <td data-month="11">@Html.DisplayFor(modelItem => item.NovembreCarico)</td>
+                    <td data-month="11">@Html.DisplayFor(modelItem => item.NovembreScarico)</td>
+                    <td data-month="12">@Html.DisplayFor(modelItem => item.DicembreCarico)</td>
+                    <td data-month="12">@Html.DisplayFor(modelItem => item.DicembreScarico)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Rimanenza)</td>
+                    <td>@Html.DisplayFor(modelItem => item.TotaleCarico)</td>
+                    <td>@Html.DisplayFor(modelItem => item.TotaleScarico)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Totale)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DataIns)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<br />
+<!-- Pulsante di stampa -->
+<a asp-action="GeneratePdf" asp-controller="ItemSearch" class="btn btn-secondary">Genera PDF</a>
+
+<script>
+    document.getElementById('showMonth').addEventListener('click', function () {
+        var selectedMonth = document.getElementById('monthSelect').value;
+
+        // Nascondi tutte le colonne dei mesi
+        for (var month = 1; month <= 12; month++) {
+            var monthColumns = document.querySelectorAll('[data-month="' + month + '"]');
+            monthColumns.forEach(function (column) {
+                column.style.display = 'none';
+            });
+        }
+
+        // Mostra tutte le colonne se "Tutti" è selezionato
+        if (selectedMonth === "all") {
+            for (var month = 1; month <= 12; month++) {
+                var monthColumns = document.querySelectorAll('[data-month="' + month + '"]');
+                monthColumns.forEach(function (column) {
+                    column.style.display = '';
+                });
+            }
+        } else {
+            // Mostra solo le colonne del mese selezionato
+            var selectedMonthColumns = document.querySelectorAll('[data-month="' + selectedMonth + '"]');
+            selectedMonthColumns.forEach(function (column) {
+                column.style.display = '';
+            });
+        }
+    });
+
+    // Imposta "Tutti" come valore predefinito e mostra tutte le colonne al caricamento della pagina
+    document.getElementById('monthSelect').value = "all";
+    document.getElementById('showMonth').click();
+</script>
+
