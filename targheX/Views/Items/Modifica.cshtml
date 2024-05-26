@@ -1,0 +1,168 @@
+﻿@model targheX.Models.Item
+
+@{
+    ViewData["Title"] = "Modifica";
+}
+<style>
+    .border-box {
+        border: 1px solid #ddd;
+        padding: 15px;
+        margin-bottom: 10px;
+    }
+</style>
+<h1>Modifica</h1>
+
+<h4>Aggiorna i seguenti campi:</h4>
+<hr />
+<div class="container">
+    <form asp-action="Modifica">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="ID" />
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DataIns" class="control-label"></label>
+                    <input asp-for="DataIns" class="form-control" />
+                    <span asp-validation-for="DataIns" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Giacenza" class="control-label"></label>
+                    <input asp-for="Giacenza" class="form-control" />
+                    <span asp-validation-for="Giacenza" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                @* Gennaio *@
+                <div class="form-group border-box">
+                    <label asp-for="GennaioCarico" class="control-label"></label>
+                    <input asp-for="GennaioCarico" class="form-control" />
+                    <span asp-validation-for="GennaioCarico" class="text-danger"></span>
+                    <label asp-for="GennaioScarico" class="control-label"></label>
+                    <input asp-for="GennaioScarico" class="form-control" />
+                    <span asp-validation-for="GennaioScarico" class="text-danger"></span>
+                </div>
+                @* Febbraio *@
+                <div class="form-group border-box">
+                    <label asp-for="FebbraioCarico" class="control-label"></label>
+                    <input asp-for="FebbraioCarico" class="form-control" />
+                    <span asp-validation-for="FebbraioCarico" class="text-danger"></span>
+                    <label asp-for="FebbraioScarico" class="control-label"></label>
+                    <input asp-for="FebbraioScarico" class="form-control" />
+                    <span asp-validation-for="FebbraioScarico" class="text-danger"></span>
+                </div>
+                @* Marzo *@
+                <div class="form-group border-box">
+                    <label asp-for="MarzoCarico" class="control-label"></label>
+                    <input asp-for="MarzoCarico" class="form-control" />
+                    <span asp-validation-for="MarzoCarico" class="text-danger"></span>
+                    <label asp-for="MarzoScarico" class="control-label"></label>
+                    <input asp-for="MarzoScarico" class="form-control" />
+                    <span asp-validation-for="MarzoScarico" class="text-danger"></span>
+                </div>
+                @* Aprile *@
+                <div class="form-group border-box">
+                    <label asp-for="AprileCarico" class="control-label"></label>
+                    <input asp-for="AprileCarico" class="form-control" />
+                    <span asp-validation-for="AprileCarico" class="text-danger"></span>
+                    <label asp-for="AprileScarico" class="control-label"></label>
+                    <input asp-for="AprileScarico" class="form-control" />
+                    <span asp-validation-for="AprileScarico" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                @* Maggio *@
+                <div class="form-group border-box">
+                    <label asp-for="MaggioCarico" class="control-label"></label>
+                    <input asp-for="MaggioCarico" class="form-control" />
+                    <span asp-validation-for="MaggioCarico" class="text-danger"></span>
+                    <label asp-for="MaggioScarico" class="control-label"></label>
+                    <input asp-for="MaggioScarico" class="form-control" />
+                    <span asp-validation-for="MaggioScarico" class="text-danger"></span>
+                </div>
+                @* Giugno *@
+                <div class="form-group border-box">
+                    <label asp-for="GiugnoCarico" class="control-label"></label>
+                    <input asp-for="GiugnoCarico" class="form-control" />
+                    <span asp-validation-for="GiugnoCarico" class="text-danger"></span>
+                    <label asp-for="GiugnoScarico" class="control-label"></label>
+                    <input asp-for="GiugnoScarico" class="form-control" />
+                    <span asp-validation-for="GiugnoScarico" class="text-danger"></span>
+                </div>
+                @* Luglio *@
+                <div class="form-group border-box">
+                    <label asp-for="LuglioCarico" class="control-label"></label>
+                    <input asp-for="LuglioCarico" class="form-control" />
+                    <span asp-validation-for="LuglioCarico" class="text-danger"></span>
+                    <label asp-for="LuglioScarico" class="control-label"></label>
+                    <input asp-for="LuglioScarico" class="form-control" />
+                    <span asp-validation-for="LuglioScarico" class="text-danger"></span>
+                </div>
+                @* Agosto *@
+                <div class="form-group border-box">
+                    <label asp-for="AgostoCarico" class="control-label"></label>
+                    <input asp-for="AgostoCarico" class="form-control" />
+                    <span asp-validation-for="AgostoCarico" class="text-danger"></span>
+                    <label asp-for="AgostoScarico" class="control-label"></label>
+                    <input asp-for="AgostoScarico" class="form-control" />
+                    <span asp-validation-for="AgostoScarico" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                @* Settembre *@
+                <div class="form-group border-box">
+                    <label asp-for="SettembreCarico" class="control-label"></label>
+                    <input asp-for="SettembreCarico" class="form-control" />
+                    <span asp-validation-for="SettembreCarico" class="text-danger"></span>
+                    <label asp-for="SettembreScarico" class="control-label"></label>
+                    <input asp-for="SettembreScarico" class="form-control" />
+                    <span asp-validation-for="SettembreScarico" class="text-danger"></span>
+                </div>
+                @* Ottobre *@
+                <div class="form-group border-box">
+                    <label asp-for="OttobreCarico" class="control-label"></label>
+                    <input asp-for="OttobreCarico" class="form-control" />
+                    <span asp-validation-for="OttobreCarico" class="text-danger"></span>
+                    <label asp-for="OttobreScarico" class="control-label"></label>
+                    <input asp-for="OttobreScarico" class="form-control" />
+                    <span asp-validation-for="OttobreScarico" class="text-danger"></span>
+                </div>
+                @* Novembre *@
+                <div class="form-group border-box">
+                    <label asp-for="NovembreCarico" class="control-label"></label>
+                    <input asp-for="NovembreCarico" class="form-control" />
+                    <span asp-validation-for="NovembreCarico" class="text-danger"></span>
+                    <label asp-for="NovembreScarico" class="control-label"></label>
+                    <input asp-for="NovembreScarico" class="form-control" />
+                    <span asp-validation-for="NovembreScarico" class="text-danger"></span>
+                </div>
+                @* Dicembre *@
+                <div class="form-group border-box">
+                    <label asp-for="DicembreCarico" class="control-label"></label>
+                    <input asp-for="DicembreCarico" class="form-control" />
+                    <span asp-validation-for="DicembreCarico" class="text-danger"></span>
+                    <label asp-for="DicembreScarico" class="control-label"></label>
+                    <input asp-for="DicembreScarico" class="form-control" />
+                    <span asp-validation-for="DicembreScarico" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group mt-3">
+            <input type="submit" value="Salva" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+
+<div>
+    <a asp-action="Index">Torna alla lista</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

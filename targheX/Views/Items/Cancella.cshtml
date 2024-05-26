@@ -1,14 +1,15 @@
 ﻿@model targheX.Models.Item
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Cancella";
 }
 
-<h1>Elimina</h1>
+<h1></h1>
 
 <h3>Vuoi eliminare i seguenti dati?</h3>
+<br />
 <div>
-    <h4>Item</h4>
+    <h4></h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -164,9 +165,9 @@
     </dl>
     <br />
     <br />
-    <form asp-action="Delete">
+    <form asp-action="Cancella">
         <input type="hidden" asp-for="ID" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <input type="submit" value="Elimina" class="btn btn-danger" /> |
         <a asp-action="Index">Torna alla lista</a>
     </form>
 </div>

@@ -15,7 +15,14 @@ namespace targheX.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            //return View();
+            // Effettua il reindirizzamento alla pagina di login di Identity
+            return RedirectToPage("/Account/Login", new { area = "Identity" });
+        }
+
+        public IActionResult Benvenuto()
+        {
+            return View("Benvenuto");
         }
 
         public IActionResult Info()

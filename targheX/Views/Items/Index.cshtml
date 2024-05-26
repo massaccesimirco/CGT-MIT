@@ -7,7 +7,7 @@
 <h1>CGT - Conto Giudiziale Targhe</h1>
 
 <p>
-    <a asp-action="Create">Crea nuovo</a>
+    <a asp-action="Crea">Crea nuovo</a>
 </p>
 <style>
     
@@ -201,9 +201,9 @@
                  @Html.DisplayFor(modelItem => item.DataIns)
            </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Modifica</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Dettaglio</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Cancella</a>
+                <a asp-action="Modifica" asp-route-id="@item.ID">Modifica</a> |
+                <a asp-action="Dettaglio" asp-route-id="@item.ID">Dettagli</a> |
+                <a asp-action="Cancella" asp-route-id="@item.ID">Cancella</a>
             </td>
         </tr>
 }

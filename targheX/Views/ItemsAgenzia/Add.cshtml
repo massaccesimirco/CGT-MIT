@@ -1,16 +1,16 @@
 ﻿@model targheX.Models.Item
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Add";
 }
 
-<h1>Modifica</h1>
+<h1></h1>
 
-<h4>Aggiorna i seguenti campi:</h4>
+<h4>Inserisci i valori nei seguenti campi:</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Add">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ID" />
             <div class="form-group">
@@ -159,9 +159,11 @@
 </div>
 
 <div>
-    <a asp-action="Index">Torna alla lista</a>
+    <a asp-action="Inserimento">Torna alla lista</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

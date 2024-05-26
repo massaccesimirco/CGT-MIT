@@ -11,18 +11,17 @@ using targheX.Models;
 
 namespace targheX.Controllers
 {
-    [Authorize(Roles = "Admin")]
-    public class ItemsController : Controller
+    [Authorize(Roles = "Agenzia, Admin")]
+    public class ItemsAgenzia: Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public ItemsController(ApplicationDbContext context)
+        public ItemsAgenzia(ApplicationDbContext context)
         {
             _context = context;
         }
-
         // GET: Items
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Inserimento()
         {
             // Carica gli oggetti Item dal database
             var items = await _context.Items.ToListAsync();
@@ -71,46 +70,8 @@ namespace targheX.Controllers
             return CalcolaTotaleScarico(item) + Rimanenza(item);
         }
 
-        // GET: Items-Dettagli
-        public async Task<IActionResult> Dettaglio(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var item = await _context.Items
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (item == null)
-            {
-                return NotFound();
-            }
-
-            return View(item);
-        }
-
-        // GET: Items-Crea nuovo
-        public IActionResult Crea()
-        {
-            return View();
-        }
-
-        // POST: Items-Crea nuovo
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Crea([Bind("ID,Name,Giacenza,GennaioCarico,GennaioScarico,FebbraioCarico,FebbraioScarico,MarzoCarico,MarzoScarico,AprileCarico,AprileScarico,MaggioCarico,MaggioScarico,GiugnoCarico,GiugnoScarico,LuglioCarico,LuglioScarico,AgostoCarico,AgostoScarico,SettembreCarico,SettembreScarico,OttobreCarico,OttobreScarico,NovembreCarico,NovembreScarico,DicembreCarico,DicembreScarico,DataIns")] Item item)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(item);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(item);
-        }
-
-        // GET: Items-Modifica
-        public async Task<IActionResult> Modifica(int? id)
+        // GET: Items/Aggiungi
+        public async Task<IActionResult> Add(int? id)
         {
             if (id == null)
             {
@@ -125,10 +86,10 @@ namespace targheX.Controllers
             return View(item);
         }
 
-        // POST: Items-Modifica
+        // POST: Items/Aggiungi
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Modifica(int id, [Bind("ID,Name,Giacenza,GennaioCarico,GennaioScarico,FebbraioCarico,FebbraioScarico,MarzoCarico,MarzoScarico,AprileCarico,AprileScarico,MaggioCarico,MaggioScarico,GiugnoCarico,GiugnoScarico,LuglioCarico,LuglioScarico,AgostoCarico,AgostoScarico,SettembreCarico,SettembreScarico,OttobreCarico,OttobreScarico,NovembreCarico,NovembreScarico,DicembreCarico,DicembreScarico,DataIns")] Item item)
+        public async Task<IActionResult> Add(int id, [Bind("ID,Name,Giacenza,GennaioCarico,GennaioScarico,FebbraioCarico,FebbraioScarico,MarzoCarico,MarzoScarico,AprileCarico,AprileScarico,MaggioCarico,MaggioScarico,GiugnoCarico,GiugnoScarico,LuglioCarico,LuglioScarico,AgostoCarico,AgostoScarico,SettembreCarico,SettembreScarico,OttobreCarico,OttobreScarico,NovembreCarico,NovembreScarico,DicembreCarico,DicembreScarico,DataIns")] Item item)
         {
             if (id != item.ID)
             {
@@ -139,9 +100,15 @@ namespace targheX.Controllers
             {
                 try
                 {
+                    // Ottenere il valore inserito nel form
+                    int nuovoValore = item.NuovoValore;
+
+
+
                     _context.Update(item);
                     await _context.SaveChangesAsync();
                 }
+                // eccezione se un utente modifica il dato contemporaneamente
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!ItemExists(item.ID))
@@ -153,45 +120,17 @@ namespace targheX.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Inserimento));
             }
             return View(item);
         }
 
-        // GET: Items-Cancella
-        public async Task<IActionResult> Cancella(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var item = await _context.Items
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (item == null)
-            {
-                return NotFound();
-            }
-
-            return View(item);
-        }
-
-        // POST: Items-Cancella
-        [HttpPost, ActionName("Cancella")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var item = await _context.Items.FindAsync(id);
-            _context.Items.Remove(item);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
 
         // Metodo privato per verificare l'esistenza di un oggetto Item nel database
         private bool ItemExists(int id)
         {
             return _context.Items.Any(e => e.ID == id);
         }
+
     }
 }
-

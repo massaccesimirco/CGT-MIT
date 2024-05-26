@@ -108,7 +108,7 @@ namespace targheX.Areas.Identity.Pages.Account
                         protocol: Request.Scheme);
 
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                        $"Per confermare questa email <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicca qui!</a>.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {

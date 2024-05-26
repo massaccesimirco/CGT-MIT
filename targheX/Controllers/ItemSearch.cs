@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Rotativa.AspNetCore;
 using targheX.Data;
 using targheX.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace targheX.Controllers
 {
+    [Authorize(Roles = "Ufficio, Admin")]
     public class ItemSearchController : Controller
     {
         private readonly ApplicationDbContext _context;
