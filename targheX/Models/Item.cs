@@ -82,5 +82,13 @@ namespace targheX.Models
         // inserimento nuovo valore
         public int NuovoValore { get; set; }
 
+        // Gestione anno
+        [Required]
+        [Display(Name = "Anno")]
+        public int Year { get; set; }
+
+        [Display(Name = "Stato")]
+        public bool IsClosed { get; set; }
+
     }
 }

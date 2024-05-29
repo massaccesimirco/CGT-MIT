@@ -22,8 +22,8 @@ namespace targheX.Controllers
             _context = context;
         }
 
-        // GET: ItemSearch
-        public async Task<IActionResult> Index(string searchItems, DateTime? startDate, DateTime? endDate, string selectedMonth)
+        // GET: ItemShow
+        public async Task<IActionResult> Index(string searchItems, DateTime? startDate, DateTime? endDate, string selectedMonth, int? year)
         {
             ViewData["CurrentFilter"] = searchItems;
             ViewData["CurrentStartDate"] = startDate?.ToString("yyyy-MM-dd");
@@ -31,24 +31,32 @@ namespace targheX.Controllers
             ViewData["SelectedMonth"] = selectedMonth;
 
             var months = new List<SelectListItem>
-            {
-                new SelectListItem { Value = "1", Text = "Gennaio" },
-                new SelectListItem { Value = "2", Text = "Febbraio" },
-                new SelectListItem { Value = "3", Text = "Marzo" },
-                new SelectListItem { Value = "4", Text = "Aprile" },
-                new SelectListItem { Value = "5", Text = "Maggio" },
-                new SelectListItem { Value = "6", Text = "Giugno" },
-                new SelectListItem { Value = "7", Text = "Luglio" },
-                new SelectListItem { Value = "8", Text = "Agosto" },
-                new SelectListItem { Value = "9", Text = "Settembre" },
-                new SelectListItem { Value = "10", Text = "Ottobre" },
-                new SelectListItem { Value = "11", Text = "Novembre" },
-                new SelectListItem { Value = "12", Text = "Dicembre" }
-            };
+    {
+        new SelectListItem { Value = "1", Text = "Gennaio" },
+        new SelectListItem { Value = "2", Text = "Febbraio" },
+        new SelectListItem { Value = "3", Text = "Marzo" },
+        new SelectListItem { Value = "4", Text = "Aprile" },
+        new SelectListItem { Value = "5", Text = "Maggio" },
+        new SelectListItem { Value = "6", Text = "Giugno" },
+        new SelectListItem { Value = "7", Text = "Luglio" },
+        new SelectListItem { Value = "8", Text = "Agosto" },
+        new SelectListItem { Value = "9", Text = "Settembre" },
+        new SelectListItem { Value = "10", Text = "Ottobre" },
+        new SelectListItem { Value = "11", Text = "Novembre" },
+        new SelectListItem { Value = "12", Text = "Dicembre" }
+    };
 
             ViewBag.Months = months;
 
-            var items = from i in _context.Items select i;
+            // Ottieni l'anno corrente se non è specificato alcun anno
+            if (!year.HasValue)
+            {
+                year = DateTime.Now.Year;
+            }
+
+            ViewBag.SelectedYear = year;
+
+            var items = from i in _context.Items where i.Year == year select i;
 
             if (!string.IsNullOrEmpty(searchItems))
             {

@@ -22,10 +22,16 @@ namespace targheX.Controllers
         }
 
         // GET: Items
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? year)
         {
-            // Carica gli oggetti Item dal database
-            var items = await _context.Items.ToListAsync();
+            // Ottieni l'anno corrente se non è specificato alcun anno
+            if (!year.HasValue)
+            {
+                year = DateTime.Now.Year;
+            }
+
+            // Carica gli oggetti Item dal database filtrati per anno
+            var items = await _context.Items.Where(i => i.Year == year).ToListAsync();
 
             // Calcola i valori TotaleCarico, TotaleScarico, Rimanenza e Totale per ogni oggetto Item
             foreach (var item in items)
@@ -35,6 +41,9 @@ namespace targheX.Controllers
                 item.Totale = CalcolaTotale(item);
                 item.Rimanenza = Rimanenza(item);
             }
+
+            // Passa l'anno selezionato alla vista
+            ViewBag.SelectedYear = year;
 
             return View(items);
         }
@@ -92,13 +101,18 @@ namespace targheX.Controllers
         // GET: Items-Crea nuovo
         public IActionResult Crea()
         {
-            return View();
+            var item = new Item
+            {
+                DataIns = DateTime.Now // Imposta la data corrente
+                // Year = DateTime.Now.Year // Imposta l'anno corrente
+            };
+            return View(item);
         }
 
         // POST: Items-Crea nuovo
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Crea([Bind("ID,Name,Giacenza,GennaioCarico,GennaioScarico,FebbraioCarico,FebbraioScarico,MarzoCarico,MarzoScarico,AprileCarico,AprileScarico,MaggioCarico,MaggioScarico,GiugnoCarico,GiugnoScarico,LuglioCarico,LuglioScarico,AgostoCarico,AgostoScarico,SettembreCarico,SettembreScarico,OttobreCarico,OttobreScarico,NovembreCarico,NovembreScarico,DicembreCarico,DicembreScarico,DataIns")] Item item)
+        public async Task<IActionResult> Crea([Bind("ID,Name,Giacenza,GennaioCarico,GennaioScarico,FebbraioCarico,FebbraioScarico,MarzoCarico,MarzoScarico,AprileCarico,AprileScarico,MaggioCarico,MaggioScarico,GiugnoCarico,GiugnoScarico,LuglioCarico,LuglioScarico,AgostoCarico,AgostoScarico,SettembreCarico,SettembreScarico,OttobreCarico,OttobreScarico,NovembreCarico,NovembreScarico,DicembreCarico,DicembreScarico,DataIns,Year")] Item item)
         {
             if (ModelState.IsValid)
             {

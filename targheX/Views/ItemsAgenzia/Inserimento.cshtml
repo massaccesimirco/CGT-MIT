@@ -105,7 +105,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @foreach (var item in Model.Where(x => !x.IsClosed && x.DataIns.Year == DateTime.Now.Year))
             {
                 <tr>
                     <td>
