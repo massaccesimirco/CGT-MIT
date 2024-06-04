@@ -5,23 +5,62 @@ Il sistema attraverso una rappresentazione a tabella mostra nella prima colonna 
 Nelle colonne finali della rappresentazione ci mostra i totali, parziali e le rimanenze per ogni tipo di targa inserita.
 
 FLUSSO DI BASE CGT
--	Visualizzazione index del sistema - pagina di benvenuto che presenta un menu in alto e tre possibili aree di accesso:
--	Visualizza: mostra il resoconto CGT annuale aggiornato all’ultima modifica.
--	Modifica: accesso consentito previa registrazione e login, abilita le funzioni di creazione, modifica, dettaglio e cancella sul resoconto CGT che agiscono direttamente su tutti i record della riga selezionata.
--	Login: tramite il login permette l’accesso all’area di “Modifica”.
 
--	Riconoscimento utente: il sistema riconosce l’utente autenticato e ne conferisce i privilegi associati.
+Funzionamento del Sistema
 
--	Visualizzazione del resoconto: una volta effettuato il riconoscimento tramite il login avremo accesso alla visualizzazione del resoconto CGT ed abilitato i privilegi dell’utente amministratore.
+Modello (Model)
+   - La tabella "Items" è il fulcro dei dati inseriti e gestiti. Questa tabella contiene informazioni relative agli elementi che vengono monitorati e gestiti dagli utenti.
+   - Un'altra tabella gestisce gli utenti e i ruoli, integrata con Microsoft Identity Framework.
+   - Dati annuali: gestione di carico e scarico mensile, giacenza iniziale, tipo di targa, rimanenza da riportare all'anno successivo, totale di carico, totale di scarico e totale finale.
 
+Vista (View)
+   - La vista è responsabile della presentazione dei dati agli utenti. Esistono diverse visualizzazioni per gestire, visualizzare e inserire dati.
+   - Le viste sono personalizzate in base al ruolo dell'utente, mostrando solo le informazioni e le funzionalità pertinenti.
+   - Visualizzazione di anni precedenti con tutti i dettagli dei dati inclusi.
 
-ESTENSIONI E FLUSSI ALTERNATIVI
--	Funzione di stampa: presente all’interno dell’area “Visualizza”, genera un file pdf di tutti i record inseriti formattato per una stampa A4.
+Controller
+   - I controller gestiscono le richieste degli utenti e operano sul modello per fornire le viste appropriate.
+   - Ogni sezione (Gestione, Visualizzazione, Inserimento) è controllata da specifici controller che implementano la logica di business necessaria.
+   - Gestione della chiusura dell'anno e la generazione di report annuali basati sui dati passati.
 
--	Creazione dei Ruoli di accesso: previsti 3 tipi di privilegi collegati a 3 ruoli per un differente utilizzo del sistema: amministratore, utente motorizzazione ed utente agenzia. 
-I seguenti ruoli avranno diverse interfacce di visualizzazione in base alle esigenze di inserimento nel resoconto annuale, in più l’utente agenzia avrà una policy di modifica e visualizzazione inerente unicamente al proprio lavoro ed ai propri inserimenti.
+Attori del Sistema
 
--	Creazioni di filtri dati per le visualizzazioni e gli inserimenti: creazioni di una vista e relativo controllo di filtro per data in modo da poter visualizzare più anni, mesi e di conseguenza permettere la modifica e l’inserimento nelle viste collegate a tutti gli account in base ai privilegi conferiti.
+Admin
+   - Ha accesso completo a tutte le funzionalità.
+   - Può creare, modificare e chiudere un anno di dati.
+   - Gestisce gli utenti e i loro ruoli.
+   - Visualizzazione di tutti gli anni precedenti con i dettagli dei dati.
+
+Ufficio
+   - Può inserire e visualizzare i dati.
+   - Ha accesso completo alla vista di inserimento e a tutte le funzioni di visualizzazione.
+   - Visualizzazione di tutti gli anni precedenti con i dettagli dei dati.
+
+Agenzia
+   - Può inserire dati e visualizzare solo gli inserimenti effettuati dal singolo utente.
+   - Visualizzazione dei propri dati per tutti gli anni precedenti.
+
+Casi d'Uso Specifici
+
+Admin
+   - Gestione Anno Dati: Creazione, modifica e chiusura di un anno di dati.
+   - Gestione Utenti: Creazione, modifica e assegnazione dei ruoli agli utenti.
+   - Visualizzazione Completa: Accesso a tutti i dati nella tabella "Items" con filtri per nome, data, anno e mese, e visualizzazione dei dati degli anni precedenti.
+   - Generazione PDF: Creazione di un PDF della tabella finale utilizzando Rotativa.
+   - Visualizzazione Annuale: Accesso ai dati dettagliati di ogni anno chiuso, inclusi carico, scarico, giacenza iniziale, tipo di targa, rimanenza, totale di carico, totale di scarico e totale finale.
+   - Generazione Report Annuale: Creazione di relazioni annuali basate sui dati storici.
+
+2. Ufficio
+   - Inserimento Dati: Inserimento di nuovi dati nella tabella "Items".
+   - Visualizzazione Dati:Accesso a tutti i dati nella tabella "Items" con filtri per nome, data, anno e mese, e visualizzazione dei dati degli anni precedenti.
+   - Generazione PDF:Creazione di un PDF della tabella finale utilizzando Rotativa (se permesso).
+   - Visualizzazione Annuale:Accesso ai dati dettagliati di ogni anno chiuso, inclusi carico, scarico, giacenza iniziale, tipo di targa, rimanenza, totale di carico, totale di scarico e totale finale.
+
+3. Agenzia
+   - Inserimento Dati: Inserimento di nuovi dati nella tabella "Items".
+   - Visualizzazione Personale: Accesso solo ai dati inseriti dall'utente corrente nella tabella "Items".
+   - Generazione PDF: Creazione di un PDF della tabella finale con i propri dati utilizzando Rotativa (se permesso).
+   - Visualizzazione Annuale Personale: Accesso ai propri dati dettagliati di ogni anno chiuso
 
 
 METODI E TECNICHE UTILIZZATI
