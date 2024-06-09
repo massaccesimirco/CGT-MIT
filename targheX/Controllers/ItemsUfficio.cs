@@ -23,8 +23,13 @@ namespace targheX.Controllers
         // GET: Items
         public async Task<IActionResult> Inserimento()
         {
-            // Carica gli oggetti Item dal database
-            var items = await _context.Items.ToListAsync();
+            // Ottieni l'anno corrente
+            int currentYear = DateTime.Now.Year;
+
+            // Filtra gli oggetti Item per includere solo quelli dell'anno corrente
+            var items = await _context.Items
+                .Where(item => item.Year == currentYear)
+                .ToListAsync();
 
             // Calcola i valori TotaleCarico, TotaleScarico, Rimanenza e Totale per ogni oggetto Item
             foreach (var item in items)
@@ -37,6 +42,7 @@ namespace targheX.Controllers
 
             return View(items);
         }
+
 
         // Metodo per calcolare il totale di carico per un oggetto Item
         private int CalcolaTotaleCarico(Item item)
@@ -89,7 +95,7 @@ namespace targheX.Controllers
         // POST: Items/Aggiungi
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Add(int id, [Bind("ID,Name,Giacenza,GennaioCarico,GennaioScarico,FebbraioCarico,FebbraioScarico,MarzoCarico,MarzoScarico,AprileCarico,AprileScarico,MaggioCarico,MaggioScarico,GiugnoCarico,GiugnoScarico,LuglioCarico,LuglioScarico,AgostoCarico,AgostoScarico,SettembreCarico,SettembreScarico,OttobreCarico,OttobreScarico,NovembreCarico,NovembreScarico,DicembreCarico,DicembreScarico,DataIns")] Item item)
+        public async Task<IActionResult> Add(int id, [Bind("ID,Name,Giacenza,GennaioCarico,GennaioScarico,FebbraioCarico,FebbraioScarico,MarzoCarico,MarzoScarico,AprileCarico,AprileScarico,MaggioCarico,MaggioScarico,GiugnoCarico,GiugnoScarico,LuglioCarico,LuglioScarico,AgostoCarico,AgostoScarico,SettembreCarico,SettembreScarico,OttobreCarico,OttobreScarico,NovembreCarico,NovembreScarico,DicembreCarico,DicembreScarico,DataIns,Year")] Item item)
         {
             if (id != item.ID)
             {

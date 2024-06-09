@@ -44,4 +44,33 @@ pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.MapRazorPages();
 
+// Crea i ruoli all'avvio dell'applicazione
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+        await EnsureRolesCreated(roleManager);
+    }
+    catch (Exception ex)
+    {
+        // Log error
+        Console.WriteLine(ex.Message);
+    }
+}
+
 app.Run();
+
+static async Task EnsureRolesCreated(RoleManager<IdentityRole> roleManager)
+{
+    string[] roleNames = { "Admin", "Ufficio", "Agenzia" };
+    foreach (var roleName in roleNames)
+    {
+        var roleExists = await roleManager.RoleExistsAsync(roleName);
+        if (!roleExists)
+        {
+            await roleManager.CreateAsync(new IdentityRole(roleName));
+        }
+    }
+}
