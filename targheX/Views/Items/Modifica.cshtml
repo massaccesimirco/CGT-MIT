@@ -30,6 +30,13 @@
                     <input asp-for="DataIns" class="form-control" />
                     <span asp-validation-for="DataIns" class="text-danger"></span>
                 </div>
+                <!-- Aggiungi campo nascosto per l'anno <input type="hidden" asp-for="Year" value="@DateTime.Now.Year" /> -->
+                <!-- Aggiungi campo di input per l'anno -->
+                <div class="form-group">
+                    <label asp-for="Year" class="control-label">Anno</label>
+                    <input asp-for="Year" class="form-control" />
+                    <span asp-validation-for="Year" class="text-danger"></span>
+                </div>
                 <div class="form-group">
                     <label asp-for="Giacenza" class="control-label"></label>
                     <input asp-for="Giacenza" class="form-control" />
