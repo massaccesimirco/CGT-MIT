@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using targheX.Data;
 using targheX.Models;
 
@@ -16,25 +15,17 @@ namespace targheX.Services
 
         public bool CloseYearInternal(int year)
         {
-            try
+            var itemsToClose = _context.Items.Where(i => i.Year == year && !i.IsClosed).ToList();
+            foreach (var item in itemsToClose)
             {
-                var itemsToClose = _context.Items.Where(i => i.Year == year && !i.IsClosed).ToList();
-                foreach (var item in itemsToClose)
-                {
-                    item.IsClosed = true;
-                }
-                _context.SaveChanges();
-
-                // Dopo aver chiuso l'anno corrente, crea la nuova tabella per l'anno successivo
-                CreateNewYearTable(year + 1);
-
-                return true;
+                item.IsClosed = true;
             }
-            catch
-            {
-                // Gestisci l'errore
-                return false;
-            }
+            _context.SaveChanges();
+
+            // Dopo aver chiuso l'anno corrente, crea la nuova tabella per l'anno successivo
+            CreateNewYearTable(year + 1);
+
+            return true;
         }
 
         public void CreateNewYearTable(int newYear)
@@ -79,6 +70,11 @@ namespace targheX.Services
 
             _context.Items.AddRange(newItems);
             _context.SaveChanges();
+        }
+
+        public bool IsYearClosed(int year)
+        {
+            return _context.Items.Any(i => i.Year == year && i.IsClosed);
         }
     }
 }

@@ -23,6 +23,12 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectio
 // Registrazione dei servizi
 builder.Services.AddScoped<IYearService, YearService>();
 builder.Services.Decorate<IYearService, YearServiceProxy>();
+
+// Configura i servizi
+builder.Services.AddControllersWithViews();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddMemoryCache();
+
 // Configura il logging
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();

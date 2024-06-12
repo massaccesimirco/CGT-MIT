@@ -24,7 +24,7 @@ namespace targheX.Controllers
             }
             else
             {
-                TempData["ErrorMessage"] = "Errore nella chiusura dell'anno.";
+                TempData["ErrorMessage"] = "Errore nella chiusura dell'anno o l'anno è già chiuso.";
                 return RedirectToAction("Index", "Items");
             }
         }
