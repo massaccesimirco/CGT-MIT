@@ -29,6 +29,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.12" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Templating" Version="7.0.12" />
     <PackageReference Include="Rotativa.AspNetCore" Version="1.3.2" />
+    <PackageReference Include="Scrutor.AspNetCore" Version="3.3.0" />
   </ItemGroup>
 
 </Project>

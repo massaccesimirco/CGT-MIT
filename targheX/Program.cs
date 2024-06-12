@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Identity;
 using targheX.Areas.Identity.Data;
 using Microsoft.Extensions.DependencyInjection;
 using Rotativa.AspNetCore;
+using Scrutor;
+using targheX.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +19,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddDbContext<DbContextUser>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Registrazione dei servizi
+builder.Services.AddScoped<IYearService, YearService>();
+builder.Services.Decorate<IYearService, YearServiceProxy>();
 
 // Configurazione dei servizi di identità
 builder.Services.AddDefaultIdentity<User>()
