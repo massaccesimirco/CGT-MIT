@@ -23,6 +23,10 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectio
 // Registrazione dei servizi
 builder.Services.AddScoped<IYearService, YearService>();
 builder.Services.Decorate<IYearService, YearServiceProxy>();
+// Configura il logging
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.AddDebug();
 
 // Configurazione dei servizi di identità
 builder.Services.AddDefaultIdentity<User>()

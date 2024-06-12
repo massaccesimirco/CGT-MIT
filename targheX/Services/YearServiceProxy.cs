@@ -1,30 +1,33 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 
 namespace targheX.Services
 {
     public class YearServiceProxy : IYearService
     {
         private readonly IYearService _yearService;
+        private readonly ILogger<YearServiceProxy> _logger;
 
-        public YearServiceProxy(IYearService yearService)
+        public YearServiceProxy(IYearService yearService, ILogger<YearServiceProxy> logger)
         {
             _yearService = yearService;
+            _logger = logger;
         }
 
         public bool CloseYearInternal(int year)
         {
-            // Log operazioni per chiusura
-            Console.WriteLine($"Chiusura anno: {year}");
+            // Log operation
+            _logger.LogInformation($"Inizio chiusura anno: {year}");
 
             var result = _yearService.CloseYearInternal(year);
 
             if (result)
             {
-                Console.WriteLine($"Anno {year} chiuso con successo.");
+                _logger.LogInformation($"Anno {year} chiuso con successo.");
             }
             else
             {
-                Console.WriteLine($"Chiusura dell'anno {year} fallita.");
+                _logger.LogError($"Chiusura dell'anno {year} fallita.");
             }
 
             return result;
@@ -32,13 +35,12 @@ namespace targheX.Services
 
         public void CreateNewYearTable(int newYear)
         {
-            // Log operazioni per nuova tabella
-            Console.WriteLine($"Creo la nuova tabella per l'nno: {newYear}");
+            // Log operation
+            _logger.LogInformation($"Creo la nuova tabella per l'anno: {newYear}");
 
             _yearService.CreateNewYearTable(newYear);
 
-            Console.WriteLine($"Nuova tabella per l'anno {newYear} creata con successo.");
+            _logger.LogInformation($"Nuova tabella per l'anno {newYear} creata con successo.");
         }
     }
 }
-
