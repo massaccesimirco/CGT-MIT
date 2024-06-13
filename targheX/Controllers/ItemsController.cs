@@ -98,6 +98,11 @@ namespace targheX.Controllers
             return View(item);
         }
 
+        private bool IsYearClosed(int year)
+        {
+            return _context.Items.Any(i => i.Year == year && i.IsClosed);
+        }
+
         // GET: Items-Crea nuovo
         public IActionResult Crea()
         {
@@ -114,6 +119,12 @@ namespace targheX.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Crea([Bind("ID,Name,Giacenza,GennaioCarico,GennaioScarico,FebbraioCarico,FebbraioScarico,MarzoCarico,MarzoScarico,AprileCarico,AprileScarico,MaggioCarico,MaggioScarico,GiugnoCarico,GiugnoScarico,LuglioCarico,LuglioScarico,AgostoCarico,AgostoScarico,SettembreCarico,SettembreScarico,OttobreCarico,OttobreScarico,NovembreCarico,NovembreScarico,DicembreCarico,DicembreScarico,DataIns,Year")] Item item)
         {
+            if (IsYearClosed(item.Year))
+            {
+                TempData["ErrorMessage"] = "L'anno è chiuso e non è possibile aggiungere nuovi elementi.";
+                return RedirectToAction(nameof(Index));
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(item);
@@ -142,11 +153,17 @@ namespace targheX.Controllers
         // POST: Items-Modifica
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Modifica(int id, [Bind("ID,Name,Giacenza,GennaioCarico,GennaioScarico,FebbraioCarico,FebbraioScarico,MarzoCarico,MarzoScarico,AprileCarico,AprileScarico,MaggioCarico,MaggioScarico,GiugnoCarico,GiugnoScarico,LuglioCarico,LuglioScarico,AgostoCarico,AgostoScarico,SettembreCarico,SettembreScarico,OttobreCarico,OttobreScarico,NovembreCarico,NovembreScarico,DicembreCarico,DicembreScarico,DataIns,Year")] Item item)
+        public async Task<IActionResult> Modifica(int id, [Bind("ID,Name,Giacenza,GennaioCarico,GennaioScarico,FebbraioCarico,FebbraioScarico,MarzoCarico,MarzoScarico,AprileCarico,AprileScarico,MaggioCarico,MaggioScarico,GiugnoCarico,GiugnoScarico,LuglioCarico,LuglioScarico,AgostoCarico,AgostoScarico,SettembreCarico,SettembreScarico,OttobreCarico,OttobreScarico,NovembreCarico,NovembreScarico,DicembreCarico,DicembreScarico,DataIns,Year,IsClosed")] Item item)
         {
             if (id != item.ID)
             {
                 return NotFound();
+            }
+
+            if (IsYearClosed(item.Year))
+            {
+                TempData["ErrorMessage"] = "L'anno è chiuso e non può essere modificato.";
+                return RedirectToAction(nameof(Index));
             }
 
             if (ModelState.IsValid)
@@ -196,6 +213,18 @@ namespace targheX.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var item = await _context.Items.FindAsync(id);
+
+            if (item == null)
+            {
+                return NotFound();
+            }
+
+            if (IsYearClosed(item.Year))
+            {
+                TempData["ErrorMessage"] = "L'anno è chiuso e l'elemento non può essere eliminato.";
+                return RedirectToAction(nameof(Index));
+            }
+
             _context.Items.Remove(item);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
