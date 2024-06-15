@@ -42,7 +42,7 @@ Agenzia
 
 Casi d'Uso Specifici
 
-Admin
+1. Admin
    - Gestione Anno Dati: Creazione, modifica e chiusura di un anno di dati.
    - Gestione Utenti: Creazione, modifica e assegnazione dei ruoli agli utenti.
    - Visualizzazione Completa: Accesso a tutti i dati nella tabella "Items" con filtri per nome, data, anno e mese, e visualizzazione dei dati degli anni precedenti.
@@ -62,18 +62,22 @@ Admin
    - Generazione PDF: Creazione di un PDF della tabella finale con i propri dati utilizzando Rotativa (se permesso).
    - Visualizzazione Annuale Personale: Accesso ai propri dati dettagliati di ogni anno chiuso
 
+PATTERN UTILIZZATI
+•	Architetturale: MVC (Model-View-Controller) con lo scopo di separare i componenti dell’applicazione in tre ruoli distinti per migliorare la modularità, la manutenibilità e la scalabilità del codice.
+•	Strutturale: Proxy consente di fornire un surrogato, un segnaposto per un altro oggetto controllandone l’accesso, per il monitoraggio, log e per poter aggiungere nuove funzioni di prossime implementazioni.
+•	Dependency Injection: implementato per l’inversione del controllo tra le classi e le loro dipendenze, utilizzato nei framework ASP.NET Core per promuovere la modularità e facilitare il testing.
+•	RBAC Role-based Acces Control: un modello che fornisce un approccio di organizzazione del progetto intorno ai ruoli, facilitando la gestione e l’assegnazione delle autorizzazioni in base alle responsabilità assegnate ai vari ruoli.
+	
+STRUMENTI
+•	Implementata una WEBAPP MVC ASP.NETCore 7.0 con VisualStudio2022 e relativo Database relazionale.
 
-METODI E TECNICHE UTILIZZATI
-Implementata una WEBAPP ModelViewController ASP.NETCore 7.0 con VisualStudio2022 collegata ad un gruppo di risorse Azure nominato Targhe che comprende SQL server, DB e servizio app. 
-
-Utilizzate le seguenti librerie e packpage:
-Bootstrap e jquery 
-Microsoft EntityFrameworkCore
-Microsoft EntityFrameworkCore.Sqlite
-Microsoft EntityFrameworkCore.sqlServer
-Microsoft EntityFrameworkCore.Tools
-AspNetCore Identity
-AspNetCore Identity.UI
-AspNetCore Identity.EntityFrameworkCore
-MicrosoftVisualstudioWebCodeGeneration
+LIBRERIE E FRAMEWORK
+•	Bootstrap e jquery 
+•	Microsoft EntityFrameworkCore
+•	Microsoft EntityFrameworkCore.Sqlite
+•	Microsoft EntityFrameworkCore.sqlServer
+•	Microsoft EntityFrameworkCore.Tools
+•	AspNetCore Identity
+•	AspNetCore Identity.UI
+•	AspNetCore Identity.EntityFrameworkCore
 
