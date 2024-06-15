@@ -57,14 +57,14 @@ namespace targheX.Areas.Identity.Pages.Account
             public string RoleName { get; set; }
 
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(100, ErrorMessage = "Il {0} deve essere almeno {2} e al massimo {1} caratteri.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "Conferma password")]
+            [Compare("Password", ErrorMessage = "La password e la password di conferma non corrispondono.")]
             public string ConfirmPassword { get; set; }
         }
 
@@ -86,7 +86,7 @@ namespace targheX.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User created a new account with password.");
+                    _logger.LogInformation("L'utente ha creato un nuovo account con password.");
 
                     var roleName = Input.RoleName;
                     if (!string.IsNullOrEmpty(roleName))

@@ -20,9 +20,9 @@ namespace targheX.Controllers
             return RedirectToPage("/Account/Login", new { area = "Identity" });
         }
 
-        public IActionResult Benvenuto()
+        public IActionResult Success()
         {
-            return View("Benvenuto");
+            return View("Success");
         }
 
         public IActionResult Info()
