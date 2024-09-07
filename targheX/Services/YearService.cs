@@ -76,5 +76,17 @@ namespace targheX.Services
         {
             return _context.Items.Any(i => i.Year == year && i.IsClosed);
         }
+
+        public bool ReopenYear(int year)
+        {
+            var itemsToReopen = _context.Items.Where(i => i.Year == year && i.IsClosed).ToList();
+            foreach (var item in itemsToReopen)
+            {
+                item.IsClosed = false;
+            }
+            _context.SaveChanges();
+
+            return true;
+        }
     }
 }

@@ -29,6 +29,22 @@ namespace targheX.Controllers
             }
         }
 
+        [HttpPost]
+        public IActionResult ReopenYear(int year)
+        {
+            bool success = _yearService.ReopenYear(year);
+            if (success)
+            {
+                TempData["SuccessMessage"] = $"L'anno {year} è stato riaperto con successo.";
+                return RedirectToAction("Index", "Items");
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Errore nella riapertura dell'anno.";
+                return RedirectToAction("Index", "Items");
+            }
+        }
+
         public IActionResult Index()
         {
             return View();

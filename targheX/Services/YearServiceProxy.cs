@@ -56,5 +56,29 @@ namespace targheX.Services
         {
             return _yearService.IsYearClosed(year);
         }
+
+        public bool ReopenYear(int year)
+        {
+            if (!_yearService.IsYearClosed(year))
+            {
+                _logger.LogWarning($"L'anno {year} è già aperto. Non puoi riaprirlo.");
+                return false;
+            }
+
+            _logger.LogInformation($"Sto riaprendo l'anno: {year}");
+
+            var result = _yearService.ReopenYear(year);
+
+            if (result)
+            {
+                _logger.LogInformation($"L'anno {year} è stato riaperto con successo.");
+            }
+            else
+            {
+                _logger.LogError($"Non è stato possibile riaprire l'anno {year}.");
+            }
+
+            return result;
+        }
     }
 }

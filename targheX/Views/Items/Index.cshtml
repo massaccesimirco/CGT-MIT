@@ -247,8 +247,19 @@
 <h3>Chiudi Anno</h3>
 <form asp-action="CloseYear" asp-controller="Year" method="post" class="form-inline">
     <div class="form-group mb-2">
-        <label for="year" class="sr-only">Anno da chiudere:</label>
-        <input type="number" class="form-control" id="year" name="year" placeholder="Anno" required />
+        <label for="closeYear" class="sr-only">Anno da chiudere:</label>
+        <input type="number" class="form-control" id="closeYear" name="year" placeholder="Anno" required />
     </div>
     <button type="submit" class="btn btn-primary mb-2">Chiudi Anno</button>
+</form>
+
+<!-- Form per la riapertura dell'anno -->
+<br />
+<h3>Riapri Anno</h3>
+<form asp-action="ReopenYear" asp-controller="Year" method="post" class="form-inline">
+    <div class="form-group mb-2">
+        <label for="reopenYear" class="sr-only">Anno da riaprire:</label>
+        <input type="number" class="form-control" id="reopenYear" name="year" placeholder="Anno" required />
+    </div>
+    <button type="submit" class="btn btn-primary mb-2">Riapri Anno</button>
 </form>

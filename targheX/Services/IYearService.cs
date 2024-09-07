@@ -5,5 +5,6 @@
         bool CloseYearInternal(int year);
         void CreateNewYearTable(int newYear);
         bool IsYearClosed(int year);
+        bool ReopenYear(int year);
     }
 }
