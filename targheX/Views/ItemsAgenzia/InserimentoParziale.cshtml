@@ -1,0 +1,238 @@
+﻿@model List<targheX.Models.Item>
+
+@{
+    ViewData["Title"] = "Inserimento Parziale";
+}
+
+<h1>CGT - Conto Giudiziale Targhe - Inserimento Parziale - Anno: @ViewBag.AnnoSelezionato</h1>
+
+<style>
+    .table {
+        table-layout: fixed; /* Mantiene larghezze fisse */
+        width: 100%; /* La tabella occupa tutta la larghezza */
+        border-collapse: collapse;
+    }
+
+        .table th,
+        .table td {
+            width: 100px; /* Larghezza fissa per tutte le colonne tranne Nome */
+            text-align: center;
+            white-space: nowrap; /* Impedisce il ritorno a capo */
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Stile per le righe alterne */
+        .table tbody tr:nth-child(even) {
+            background-color: #f9f9f9; /* Colore di sfondo */
+        }
+        /* Stile per i link nei pulsanti di azione */
+        .table a {
+            color: #007bff; /* Colore del testo */
+            text-decoration: none; /* Nessuna decorazione */
+        }
+            /* Stile per i link nei pulsanti di azione al passaggio del mouse */
+            .table a:hover {
+                color: #0056b3; /* Cambia il colore del testo al passaggio del mouse */
+            }
+
+        /* Aggiunta del bordo destro per tutte le celle tranne l'ultima colonna */
+        .table th:not(:last-child), .table td:not(:last-child) {
+            border-right: 1px solid #ddd;
+        }
+
+    .table-container {
+        overflow-x: auto; /* Abilita lo scrolling orizzontale */
+        max-width: 100%; /* Adatta la tabella alla dimensione del contenitore */
+    }
+            /* Imposta una larghezza maggiore solo per la colonna "Nome" */
+            .table th:nth-child(2),
+            .table td:nth-child(2) {
+            width: 200px; /* Aumenta la larghezza per la colonna Nome */
+            position: sticky;
+            left: 0;
+            background: white; /* Mantiene la colonna leggibile durante lo scroll */
+            z-index: 2; /* Assicura che la colonna rimanga sopra le altre */
+            border-right: 1px solid #ddd; /* Aggiunge un bordo per separarla visivamente */
+            }
+
+        /* Evita che l'intestazione forzi il ridimensionamento */
+        .table th {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            white-space: normal; /* Permette il ritorno a capo */
+            word-wrap: break-word; /* Permette la suddivisione delle parole */
+            overflow-wrap: break-word; /* Alternativa per la compatibilità */
+            text-align: center;
+        }
+
+            /* Aggiunge bordo destro a tutte le celle tranne l'ultima */
+            .table th:not(:last-child), .table td:not(:last-child) {
+                border-right: 1px solid #ddd;
+            }
+
+            .table th:nth-child(1),
+            .table td:nth-child(1) {
+                display: none;
+            }
+
+
+</style>
+
+<!-- Form per la selezione dell'anno -->
+<form asp-action="InserimentoParziale" method="get" class="mb-4">
+    <label for="Anno">Seleziona Anno:</label>
+    <input type="number" id="Anno" name="anno" class="form-control w-25 d-inline-block" min="2000" max="2100" value="@(ViewBag.AnnoSelezionato ?? DateTime.Now.Year)" />
+    <button type="submit" class="btn btn-primary">Filtra</button>
+</form>
+
+<!--Esportazione in Excel e SalvataggioDatiParziale -->
+<form asp-action="EsportaExcel" method="post">
+    <input type="hidden" name="anno" value="@ViewBag.AnnoSelezionato" />
+
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Giacenza</th>
+                    <th>Gennaio Carico</th>
+                    <th>Gennaio Scarico</th>
+                    <th>Febbraio Carico</th>
+                    <th>Febbraio Scarico</th>
+                    <th>Marzo Carico</th>
+                    <th>Marzo Scarico</th>
+                    <th>Aprile Carico</th>
+                    <th>Aprile Scarico</th>
+                    <th>Maggio Carico</th>
+                    <th>Maggio Scarico</th>
+                    <th>Giugno Carico</th>
+                    <th>Giugno Scarico</th>
+                    <th>Luglio Carico</th>
+                    <th>Luglio Scarico</th>
+                    <th>Agosto Carico</th>
+                    <th>Agosto Scarico</th>
+                    <th>Settembre Carico</th>
+                    <th>Settembre Scarico</th>
+                    <th>Ottobre Carico</th>
+                    <th>Ottobre Scarico</th>
+                    <th>Novembre Carico</th>
+                    <th>Novembre Scarico</th>
+                    <th>Dicembre Carico</th>
+                    <th>Dicembre Scarico</th>
+                    <th>Totale Carico</th>
+                    <th>Totale Scarico</th>
+                    <th>Totale</th>
+                    <th>Rimanenza</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <tr>
+                        <td>
+                            <input type="number" name="items[@i].ID" value="@Model[i].ID" class="form-control" />
+                        </td>
+                        <td>
+                            <input type="text" name="items[@i].Name" value="@Model[i].Name" class="form-control" readonly />
+                        </td>
+                        <td>
+                            <input type="number" name="items[@i].Giacenza" value="0" class="form-control" />
+                        </td>
+                        <td>
+                            <input type="number" name="items[@i].GennaioCarico" value="0" class="form-control" />
+                        </td>
+                        <td>
+                            <input type="number" name="items[@i].GennaioScarico" value="0" class="form-control" />
+                        </td>
+                        <td>
+                            <input type="number" name="items[@i].FebbraioCarico" value="0" class="form-control" />
+                        </td>
+                        <td>
+                            <input type="number" name="items[@i].FebbraioScarico" value="0" class="form-control" />
+                        </td>
+                        <td>
+                            <input type="number" name="items[@i].MarzoCarico" value="0" class="form-control" />
+                        </td>
+                        <td>
+                            <input type="number" name="items[@i].MarzoScarico" value="0" class="form-control" />
+                        </td>
+                        <td>
+                            <input type="number" name="items[@i].AprileCarico" value="0" class="form-control" />
+                        </td>
+                        <td>
+                            <input type="number" name="items[@i].AprileScarico" value="0" class="form-control" />
+                        </td>
+                        <td>
+                            <input type="number" name="items[@i].MaggioCarico" value="0" class="form-control" />
+                        </td>
+                        <td>
+                            <input type="number" name="items[@i].MaggioScarico" value="0" class="form-control" />
+                        </td>
+                        <td>
+                            <input type="number" name="items[@i].GiugnoCarico" value="0" class="form-control" />
+                        </td>
+                        <td>
+                            <input type="number" name="items[@i].GiugnoScarico" value="0" class="form-control" />
+                        </td>
+                        <td>
+                            <input type="number" name="items[@i].LuglioCarico" value="0" class="form-control" />
+                        </td>
+                        <td>
+                            <input type="number" name="items[@i].LuglioScarico" value="0" class="form-control" />
+                        </td>
+                        <td>
+                            <input type="number" name="items[@i].AgostoCarico" value="0" class="form-control" />
+                        </td>
+                        <td>
+                            <input type="number" name="items[@i].AgostoScarico" value="0" class="form-control" />
+                        </td>
+                        <td>
+                            <input type="number" name="items[@i].SettembreCarico" value="0" class="form-control" />
+                        </td>
+                        <td>
+                            <input type="number" name="items[@i].SettembreScarico" value="0" class="form-control" />
+                        </td>
+                        <td>
+                            <input type="number" name="items[@i].OttobreCarico" value="0" class="form-control" />
+                        </td>
+                        <td>
+                            <input type="number" name="items[@i].OttobreScarico" value="0" class="form-control" />
+                        </td>
+                        <td>
+                            <input type="number" name="items[@i].NovembreCarico" value="0" class="form-control" />
+                        </td>
+                        <td>
+                            <input type="number" name="items[@i].NovembreScarico" value="0" class="form-control" />
+                        </td>
+                        <td>
+                            <input type="number" name="items[@i].DicembreCarico" value="0" class="form-control" />
+                        </td>
+                        <td>
+                            <input type="number" name="items[@i].DicembreScarico" value="0" class="form-control" />
+                        </td>
+                        <td>
+                            <input type="number" name="items[@i].TotaleCarico" value="0" class="form-control" readonly />
+                        </td>
+                        <td>
+                            <input type="number" name="items[@i].TotaleScarico" value="0" class="form-control" readonly />
+                        </td>
+                        <td>
+                            <input type="number" name="items[@i].Totale" value="0" class="form-control" readonly />
+                        </td>
+                        <td>
+                            <input type="number" name="items[@i].Rimanenza" value="0" class="form-control" readonly />
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Pulsanti per il salvataggio e l'esportazione -->
+    <button type="submit" class="btn btn-success" formaction="@Url.Action("SalvaInserimentoParziale", "ItemsAgenzia")">Salva</button>
+    <button type="submit" class="btn btn-secondary" formaction="@Url.Action("EsportaExcel", "ItemsAgenzia")">Esporta in Excel</button>
+    
+</form>

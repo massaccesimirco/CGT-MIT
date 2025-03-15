@@ -153,7 +153,13 @@
         </tbody>
     </table>
 </div>
-
+<br />
+<!-- Pulsante per esportare in Excel -->
+<div class="btn-container">
+    <a href="@Url.Action("EsportaExcel", "ItemSearch", new { anno = ViewBag.SelectedYear })" class="btn btn-secondary">
+        Esporta Excel
+    </a>
+</div>
 <br />
 <!-- Pulsante di stampa -->
 <a asp-action="GeneratePdf" asp-controller="ItemSearch" class="btn btn-secondary">Genera PDF</a>

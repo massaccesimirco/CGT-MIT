@@ -116,6 +116,95 @@ namespace targheX.Controllers
             return _context.Items.Any(e => e.ID == id);
         }
 
+        [HttpGet]
+        public IActionResult EsportaExcel(int anno)
+        {
+            var items = _context.Items
+                .Where(x => x.DataIns.Year == anno)
+                .ToList();
+
+            using (var workbook = new ClosedXML.Excel.XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add($"Dati Anno {anno}");
+                int currentRow = 1;
+
+                // Aggiunge l'intestazione
+                worksheet.Cell(currentRow, 1).Value = "Nome";
+                worksheet.Cell(currentRow, 2).Value = "Giacenza";
+                worksheet.Cell(currentRow, 3).Value = "Gennaio Carico";
+                worksheet.Cell(currentRow, 4).Value = "Gennaio Scarico";
+                worksheet.Cell(currentRow, 5).Value = "Febbraio Carico";
+                worksheet.Cell(currentRow, 6).Value = "Febbraio Scarico";
+                worksheet.Cell(currentRow, 7).Value = "Marzo Carico";
+                worksheet.Cell(currentRow, 8).Value = "Marzo Scarico";
+                worksheet.Cell(currentRow, 9).Value = "Aprile Carico";
+                worksheet.Cell(currentRow, 10).Value = "Aprile Scarico";
+                worksheet.Cell(currentRow, 11).Value = "Maggio Carico";
+                worksheet.Cell(currentRow, 12).Value = "Maggio Scarico";
+                worksheet.Cell(currentRow, 13).Value = "Giugno Carico";
+                worksheet.Cell(currentRow, 14).Value = "Giugno Scarico";
+                worksheet.Cell(currentRow, 15).Value = "Luglio Carico";
+                worksheet.Cell(currentRow, 16).Value = "Luglio Scarico";
+                worksheet.Cell(currentRow, 17).Value = "Agosto Carico";
+                worksheet.Cell(currentRow, 18).Value = "Agosto Scarico";
+                worksheet.Cell(currentRow, 19).Value = "Settembre Carico";
+                worksheet.Cell(currentRow, 20).Value = "Settembre Scarico";
+                worksheet.Cell(currentRow, 21).Value = "Ottobre Carico";
+                worksheet.Cell(currentRow, 22).Value = "Ottobre Scarico";
+                worksheet.Cell(currentRow, 23).Value = "Novembre Carico";
+                worksheet.Cell(currentRow, 24).Value = "Novembre Scarico";
+                worksheet.Cell(currentRow, 25).Value = "Dicembre Carico";
+                worksheet.Cell(currentRow, 26).Value = "Dicembre Scarico";
+                worksheet.Cell(currentRow, 27).Value = "Totale Carico";
+                worksheet.Cell(currentRow, 28).Value = "Totale Scarico";
+                worksheet.Cell(currentRow, 29).Value = "Totale";
+                worksheet.Cell(currentRow, 30).Value = "Rimanenza";
+
+                // Aggiunge i dati
+                foreach (var item in items)
+                {
+                    currentRow++;
+                    worksheet.Cell(currentRow, 1).Value = item.Name;
+                    worksheet.Cell(currentRow, 2).Value = item.Giacenza;
+                    worksheet.Cell(currentRow, 3).Value = item.GennaioCarico;
+                    worksheet.Cell(currentRow, 4).Value = item.GennaioScarico;
+                    worksheet.Cell(currentRow, 5).Value = item.FebbraioCarico;
+                    worksheet.Cell(currentRow, 6).Value = item.FebbraioScarico;
+                    worksheet.Cell(currentRow, 7).Value = item.MarzoCarico;
+                    worksheet.Cell(currentRow, 8).Value = item.MarzoScarico;
+                    worksheet.Cell(currentRow, 9).Value = item.AprileCarico;
+                    worksheet.Cell(currentRow, 10).Value = item.AprileScarico;
+                    worksheet.Cell(currentRow, 11).Value = item.MaggioCarico;
+                    worksheet.Cell(currentRow, 12).Value = item.MaggioScarico;
+                    worksheet.Cell(currentRow, 13).Value = item.GiugnoCarico;
+                    worksheet.Cell(currentRow, 14).Value = item.GiugnoScarico;
+                    worksheet.Cell(currentRow, 15).Value = item.LuglioCarico;
+                    worksheet.Cell(currentRow, 16).Value = item.LuglioScarico;
+                    worksheet.Cell(currentRow, 17).Value = item.AgostoCarico;
+                    worksheet.Cell(currentRow, 18).Value = item.AgostoScarico;
+                    worksheet.Cell(currentRow, 19).Value = item.SettembreCarico;
+                    worksheet.Cell(currentRow, 20).Value = item.SettembreScarico;
+                    worksheet.Cell(currentRow, 21).Value = item.OttobreCarico;
+                    worksheet.Cell(currentRow, 22).Value = item.OttobreScarico;
+                    worksheet.Cell(currentRow, 23).Value = item.NovembreCarico;
+                    worksheet.Cell(currentRow, 24).Value = item.NovembreScarico;
+                    worksheet.Cell(currentRow, 25).Value = item.DicembreCarico;
+                    worksheet.Cell(currentRow, 26).Value = item.DicembreScarico;
+                    worksheet.Cell(currentRow, 27).Value = item.TotaleCarico;
+                    worksheet.Cell(currentRow, 28).Value = item.TotaleScarico;
+                    worksheet.Cell(currentRow, 29).Value = item.Totale;
+                    worksheet.Cell(currentRow, 30).Value = item.Rimanenza;
+                }
+
+                using (var stream = new System.IO.MemoryStream())
+                {
+                    workbook.SaveAs(stream);
+                    var content = stream.ToArray();
+
+                    return File(content, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", $"Dati_Anno_{anno}.xlsx");
+                }
+            }
+        }
         public IActionResult GeneratePdf()
         {
             var items = _context.Items.ToList();
@@ -123,7 +212,8 @@ namespace targheX.Controllers
             return new ViewAsPdf("PdfView", items)
             {
                 PageSize = Rotativa.AspNetCore.Options.Size.A4,
-                PageOrientation = Rotativa.AspNetCore.Options.Orientation.Landscape
+                PageOrientation = Rotativa.AspNetCore.Options.Orientation.Landscape,
+                CustomSwitches = "--print-media-type --margin-top 20 --margin-bottom 20"
             };
         }
     }
